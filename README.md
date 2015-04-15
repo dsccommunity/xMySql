@@ -1,6 +1,6 @@
-{{AppVeyor build status badge for master branch}}
+[![Build status](https://ci.appveyor.com/api/projects/status/ji440gfk30kxn4ri/branch/master?svg=true)](https://ci.appveyor.com/project/PowerShell/xmysql/branch/master)
 
-#{{ModuleName}}
+# xMySql
 
 {{Description}}
 
