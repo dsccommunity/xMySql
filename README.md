@@ -57,11 +57,6 @@ The user name can be any non-zero length string, but it will be ignored.
 
 ## Versions
 
-### 1.1.0.0
-
-* Resolved attribute between *.psm1 and *.schema.mof files.
-* Fixed encoding
-
 ### 1.0.0.0
 
 * Initial release with the following resources :
