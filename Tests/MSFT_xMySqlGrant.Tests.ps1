@@ -47,7 +47,7 @@ InModuleScope $DSCResourceName {
                 "GRANT ALL PRIVILEGES ON `TestDB`.* TO 'TestUser'@'localhost'"
             $permissionType = "CREATE"
 
-            Mock Test-Path { return $true }
+            Mock Test-Path -Verifiable { return $true }
             Mock Remove-Item -Verifiable { return }
             Mock Get-MySqlPort -Verifiable { return "3306" }
             Mock Get-MySqlExe -Verifiable { return "C:\somepath" }
@@ -58,7 +58,6 @@ InModuleScope $DSCResourceName {
 
             It 'should call all the mocks' {
                 Assert-VerifiableMocks
-                Assert-MockCalled Test-Path -Exactly 2
             }
         }
 
@@ -67,20 +66,18 @@ InModuleScope $DSCResourceName {
                 "GRANT ALL PRIVILEGES ON `TestDB`.* TO 'TestUser'@'localhost'"
             $permissionType = "CREATE"
 
-            Mock Test-Path { return $false }
+            Mock Test-Path -Verifiable { return $false }
             Mock Remove-Item { return }
             Mock Get-MySqlPort -Verifiable { return "3306" }
             Mock Get-MySqlExe -Verifiable { return "C:\somepath" }
             Mock Invoke-MySqlCommand -Verifiable { return }
-            Mock Read-ErrorFile { return }
+            Mock Read-ErrorFile -Verifiable { return }
 
             $result = Get-TargetResource -UserName $userName -DatabaseName $databaseName -RootCredential $testCred -PermissionType $permissionType -MySqlVersion "5.6.17"
 
             It 'should not call all the mocks' {
                 Assert-VerifiableMocks
-                Assert-MockCalled Test-Path -Exactly 2
                 Assert-MockCalled Remove-Item 0
-                Assert-MockCalled Read-ErrorFile 0
             }
         }
 
@@ -265,7 +262,7 @@ InModuleScope $DSCResourceName {
     Describe 'how Set-TargetResource works' {
         Context "when ErrorPath exists" {
 
-            Mock Test-Path { return $true }
+            Mock Test-Path -Verifiable { return $true }
             Mock Remove-Item -Verifiable { return }
             Mock Get-MySqlPort -Verifiable { return "3306" }
             Mock Get-MySqlExe -Verifiable { return "C:\somepath" }
@@ -276,34 +273,31 @@ InModuleScope $DSCResourceName {
 
             It 'should call all the mocks' {
                 Assert-VerifiableMocks
-                Assert-MockCalled Test-Path -Exactly 2
                 Assert-MockCalled Invoke-MySqlCommand -Exactly 1
             }
         }
 
         Context "when ErrorPath does not exist" {
 
-            Mock Test-Path { return $false }
+            Mock Test-Path -Verifiable { return $false }
             Mock Remove-Item { return }
             Mock Get-MySqlPort -Verifiable { return "3306" }
             Mock Get-MySqlExe -Verifiable { return "C:\somepath" }
             Mock Invoke-MySqlCommand { return } -ParameterFilter { $arguments -match "CREATE" }
-            Mock Read-ErrorFile { return }
+            Mock Read-ErrorFile -Verifiable { return }
 
             $null = Set-TargetResource -UserName "TestUser" -DatabaseName "TestDB" -Ensure "Present" -RootCredential $testCred -PermissionType "CREATE" -MySqlVersion "5.6.17"
 
             It 'should not call all the mocks' {
                 Assert-VerifiableMocks
-                Assert-MockCalled Test-Path -Exactly 2
                 Assert-MockCalled Remove-Item 0
                 Assert-MockCalled Invoke-MySqlCommand -Exactly 1
-                Assert-MockCalled Read-ErrorFile 0
             }
         }
 
         Context "when Ensure is 'Present'" {
 
-            Mock Test-Path { return $true }
+            Mock Test-Path -Verifiable { return $true }
             Mock Remove-Item -Verifiable { return }
             Mock Get-MySqlPort -Verifiable { return "3306" }
             Mock Get-MySqlExe -Verifiable { return "C:\somepath" }
@@ -314,14 +308,13 @@ InModuleScope $DSCResourceName {
 
             It 'should call all the mocks' {
                 Assert-VerifiableMocks
-                Assert-MockCalled Test-Path -Exactly 2
                 Assert-MockCalled Invoke-MySqlCommand -Exactly 1
             }
         }
 
         Context "when Ensure is 'Absent'" {
 
-            Mock Test-Path { return $true }
+            Mock Test-Path -Verifiable { return $true }
             Mock Remove-Item -Verifiable { return }
             Mock Get-MySqlPort -Verifiable { return "3306" }
             Mock Get-MySqlExe -Verifiable { return "C:\somepath" }
@@ -332,7 +325,6 @@ InModuleScope $DSCResourceName {
 
             It 'should call all the mocks' {
                 Assert-VerifiableMocks
-                Assert-MockCalled Test-Path -Exactly 2
                 Assert-MockCalled Invoke-MySqlCommand -Exactly 1
             }
         }

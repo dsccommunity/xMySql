@@ -111,14 +111,14 @@ InModuleScope $DSCResourceName {
     }
 
     Describe 'how Get-MySqlVersionInstalled works' {
-        $statusResult = @'
-Your currently installed community products are:
-
-MySQL Server 5.6.17
-         Architecture=X64
-         Installed On 8/27/2015
-         Install Location: C:\Program Files\MySQL\MySQL Server 5.6\
-'@
+        $statusResult = @(
+"Your currently installed community products are:",
+"",
+"MySQL Server 5.6.17",
+"         Architecture=X64",
+"         Installed On 8/27/2015",
+"         Install Location: C:\Program Files\MySQL\MySQL Server 5.6\"
+)
 
         Context 'when the given version is installed' {
 
@@ -153,19 +153,19 @@ MySQL Server 5.6.17
 
     Describe 'how Get-MySqlAllInstalled works' {
         Context 'should find all of the versions' {
-            $statusResult = @'
-Your currently installed community products are:
-
-MySQL Server 5.6.17
-         Architecture=X64
-         Installed On 8/27/2015
-         Install Location: C:\Program Files\MySQL\MySQL Server 5.6\
-
-MySQL Server 5.7.7
-         Architecture=X64
-         Installed On 8/27/2015
-         Install Location: C:\Program Files\MySQL\MySQL Server 5.7\
-'@
+            $statusResult = @(
+"Your currently installed community products are:",
+"",
+"MySQL Server 5.6.17",
+"         Architecture=X64",
+"         Installed On 8/27/2015",
+"         Install Location: C:\Program Files\MySQL\MySQL Server 5.6\",
+"",
+"MySQL Server 5.7.7",
+"         Architecture=X64",
+"         Installed On 8/27/2015",
+"         Install Location: C:\Program Files\MySQL\MySQL Server 5.7\"
+)
 
             $expectedResult = "5.6.17", "5.7.7"
 

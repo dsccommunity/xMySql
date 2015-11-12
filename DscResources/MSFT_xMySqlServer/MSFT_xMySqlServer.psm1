@@ -97,7 +97,7 @@ function Test-TargetResource
 
     $status = Get-TargetResource -MySqlVersion $MySqlVersion -RootPassword $RootPassword
 
-	# don't yet check if the root password matches
+    # don't yet check if the root password matches
     if(($status['Ensure'] -eq $Ensure) -and ($status['Port'] -eq $Port))
     {
         return $true
