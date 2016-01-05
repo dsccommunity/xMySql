@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.1.0.0'
+ModuleVersion = '1.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = '7c3fee65-807c-4c25-8f60-0dbece96d1bb'
@@ -25,6 +25,9 @@ CLRVersion = '4.0'
 
 # Script module or binary module file associated with this manifest.
 #RootModule = 'PSWSIISEndpoint.psm1'
+
+# Modules to import as nested modules of the module specified in ModuleToProcess
+NestedModules = 'MSFT_xMySqlUtilities.psm1'
 
 # Functions to export from this module
 FunctionsToExport = '*'
