@@ -9,13 +9,13 @@ The **xMySql** module contains the **xMySqlServer, xMySqlDatabase, xMySqlUser, x
 Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
 
 
-## Resources 
+## Resources
 
 * **xMySqlServer** configures MySQL servers
 * **xMySqlDatabase** configures MySQL databases.
 * **xMySqlUser** configures MySQL users.
 * **xMySqlGrant** configures MySQL grants.
-* **xMySqlProvison** is a composite resource that provisions a set of MySQL servers, databases, users, and permission grants using the other resources. 
+* **xMySqlProvison** is a composite resource that provisions a set of MySQL servers, databases, users, and permission grants using the other resources.
 
 ### xMySqlServer
 
@@ -23,7 +23,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **Ensure**: Ensures that the server is Present or Absent.
 * **RootPassword**:  The root password that is used to install a MySQL server.
 Note: a PSCredential object is used to store the password securely.
-The user name can be any non-zero length string, but it will be ignored. 
+The user name can be any non-zero length string, but it will be ignored.
 
 ### xMySqlDatabase
 
@@ -49,7 +49,7 @@ The user name can be any non-zero length string, but it will be ignored.
 ### xMySqlProvision
 
 * **ServiceName**: Provides the service name to use during setup of MySQL.
-* **DownloadUri**: The URL/URI used for downloading the MySQL MSI. 
+* **DownloadUri**: The URL/URI used for downloading the MySQL MSI.
 * **RootCredential**:The MySQL root credentials, user name and password.
 * **DatabaseName**: The MySQL database name.
 * **UserCredential**:The credentials, user name and password, for the MySQL user.
@@ -57,10 +57,21 @@ The user name can be any non-zero length string, but it will be ignored.
 
 ## Versions
 
-### 1.1.0.0
+### Unreleased
 
-* Resolved attribute between *.psm1 and *.schema.mof files.
-* Fixed encoding
+### 1.2.0.0
+
+* NOTE: This contains BREAKING Changes
+    * We should update to 2.0.0.0 on release.
+* Updated all resources to contain unit tests
+* Modified schema on many resources to standardize naming
+* Fixed resources to removing hard coding of MySQL Version (Fixes #2)
+* Removed Debug Tracing of Passwords (Fixes #3)
+* Created standard library to reduce code redundancy
+
+### 1.1.0.0
+ * Resolved attribute between *.psm1 and *.schema.mof files.
+ * Fixed encoding
 
 ### 1.0.0.0
 
@@ -73,7 +84,7 @@ The user name can be any non-zero length string, but it will be ignored.
 
 # Setup a MySQL server on a single node
 
-This configuration will setup a MySQL server on a single node.  
+This configuration will setup a MySQL server on a single node.
 
 ```powershell
 Configuration SQLInstanceInstallationConfiguration
@@ -96,7 +107,7 @@ Configuration SQLInstanceInstallationConfiguration
         {
 
             Path = $MySQLInstancePackagePath
-            ProductId = $Node.PackageProductID 
+            ProductId = $Node.PackageProductID
             Name = $MySQLInstancePackageName
         }
 
@@ -120,7 +131,7 @@ SQLInstanceInstallationConfiguration `
 
 ### Setup a MySQL server database
 
-This configuration will setup a MySQL server and create a database.  
+This configuration will setup a MySQL server and create a database.
 
 ```powershell
 Configuration SQLInstanceAndDatabaseInstallationConfiguration
@@ -143,7 +154,7 @@ Configuration SQLInstanceAndDatabaseInstallationConfiguration
         {
 
             Path = $MySQLInstancePackagePath
-            ProductId = $Node.PackageProductID 
+            ProductId = $Node.PackageProductID
             Name = $MySQLInstancePackageName
             Ensure = "Present"
         }
@@ -175,7 +186,7 @@ SQLInstanceAndDatabaseInstallationConfiguration `
 
 ### Setup a MySQL server user
 
-This configuration will setup a MySQL user, assuming mySQL is installed on a local machine with root user $RootUser and root password $global:pwd. 
+This configuration will setup a MySQL user, assuming mySQL is installed on a local machine with root user $RootUser and root password $global:pwd.
 
 ```
 Configuration CreateMySQLUserConfiguration
@@ -190,7 +201,7 @@ Configuration CreateMySQLUserConfiguration
     Import-DscResource -Module xMySql
     $mySQLUserCredential = New-Object -TypeName System.Management.Automation.PSCredential ($Name,$global:pwd)
     node ("localhost")
-    {                  
+    {
         xMySqlUser NewMySqlUser1
         {
             Name = $Name
@@ -211,7 +222,7 @@ CreateMySQLUserConfiguration -output "$env:temp\CreateMySQLUserConfiguration"
 ### Setup a MySQL server grant
 
 This configuration will grant full acesss to a given MySQL database for a given user.
-It assumes that mySQL is installed on a local machine with root user $RootUser and root password $global:pwd. 
+It assumes that mySQL is installed on a local machine with root user $RootUser and root password $global:pwd.
 
 ```powershell
 configuration MySQLGrantConfiguration
@@ -229,13 +240,13 @@ configuration MySQLGrantConfiguration
     Import-DscResource -Module xMySql
 
     node ("localhost")
-    {                  
+    {
         xMySqlGrant mySQLGrant
         {
             UserName = $UserName
             DatabaseName = $DatabaseName
             PermissionType = "ALL PRIVILEGES"
-            Ensure = "Present"               
+            Ensure = "Present"
             ConnectionCredential = $global:MySQLRootCredential
 
         }
