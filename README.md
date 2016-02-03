@@ -59,10 +59,9 @@ The user name can be any non-zero length string, but it will be ignored.
 
 ### Unreleased
 
-### 1.2.0.0
+### 2.0.0.0
 
-* NOTE: This contains BREAKING Changes
-    * We should update to 2.0.0.0 on release.
+* NOTE: This contains breaking Changes
 * Updated all resources to contain unit tests
 * Modified schema on many resources to standardize naming
 * Fixed resources to removing hard coding of MySQL Version (Fixes #2)
@@ -70,6 +69,7 @@ The user name can be any non-zero length string, but it will be ignored.
 * Created standard library to reduce code redundancy
 
 ### 1.1.0.0
+
  * Resolved attribute between *.psm1 and *.schema.mof files.
  * Fixed encoding
 
