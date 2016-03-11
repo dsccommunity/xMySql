@@ -123,7 +123,7 @@ function Set-TargetResource
     {        
         Write-Verbose "Revoking $PermissionType on $DatabaseName to $UserName..."
 
-        $arguments = "--execute=REVOKE $PermissionType ON $DatabaseName.* FOR '$UserName'@localhost", "--user=root", `
+        $arguments = "--execute=REVOKE $PermissionType ON $DatabaseName.* FROM '$UserName'@localhost", "--user=root", `
             "--password=$($RootCredential.GetNetworkCredential().Password)", "--port=$(Get-MySqlPort -MySqlVersion $MySqlVersion)", "--silent"
         $null = Invoke-MySqlCommand -CommandPath $(Get-MySqlExe -MySqlVersion $MySqlVersion) -Arguments $arguments 2>$ErrorPath
 
