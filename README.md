@@ -59,6 +59,11 @@ The user name can be any non-zero length string, but it will be ignored.
 
 ### Unreleased
 
+### 2.1.0.0
+
+* Added import for local MSFT_xMySqlUtilities in Tests
+* Fixed a SQL syntax error for REVOKE in MSFT_xMySqlGrant
+
 ### 2.0.0.0
 
 * NOTE: This contains breaking Changes
