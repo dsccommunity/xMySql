@@ -39,8 +39,9 @@ Import-Module (Join-Path $here -ChildPath "..\DSCResources\MSFT_xMySqlDatabase\M
 Import-Module (Join-Path $here -ChildPath "..\xMySql.psd1")
 
 $DSCResourceName = "MSFT_xMySqlDatabase"
-InModuleScope $DSCResourceName {
 
+InModuleScope $DSCResourceName {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
     $testPassword = ConvertTo-SecureString "password" -AsPlainText -Force
     $testCred = New-Object -typename System.Management.Automation.PSCredential -argumentlist "account",$testPassword
 
