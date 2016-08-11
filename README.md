@@ -61,6 +61,7 @@ The user name can be any non-zero length string, but it will be ignored.
 ## Versions
 
 ### Unreleased
+* Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
 
 ### 2.1.0.0
 

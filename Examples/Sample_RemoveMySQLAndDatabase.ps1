@@ -1,3 +1,7 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
+param
+()
+
 configuration SQLRemoveInstanceAndDatabaseInstallationConfiguration
 {
     param

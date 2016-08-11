@@ -1,3 +1,6 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
+param
+()
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 if (! (Get-Module xDSCResourceDesigner))
@@ -39,8 +42,8 @@ Import-Module (Join-Path $here -ChildPath "..\DSCResources\MSFT_xMySqlDatabase\M
 Import-Module (Join-Path $here -ChildPath "..\xMySql.psd1")
 
 $DSCResourceName = "MSFT_xMySqlDatabase"
-InModuleScope $DSCResourceName {
 
+InModuleScope $DSCResourceName {    
     $testPassword = ConvertTo-SecureString "password" -AsPlainText -Force
     $testCred = New-Object -typename System.Management.Automation.PSCredential -argumentlist "account",$testPassword
 
