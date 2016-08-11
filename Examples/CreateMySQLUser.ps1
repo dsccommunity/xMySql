@@ -4,6 +4,7 @@
 
 configuration CreateMySQLUserConfiguration
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
     param
     (
         [parameter(Mandatory = $true)]
