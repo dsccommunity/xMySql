@@ -1,10 +1,12 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
+param
+()
 ###################
 # Configuration script to create my sql user. It assumes that mySql is installed on local machine with root user $RootUser and root password $global:pwd
 ###################
 
 configuration CreateMySQLUserConfiguration
 {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
     param
     (
         [parameter(Mandatory = $true)]
